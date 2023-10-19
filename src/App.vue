@@ -1,49 +1,56 @@
 <template>
-  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h3 class="display-5">Product Infomation</h3>
-    <router-link to="/about">Back</router-link>
-</div>
-
-<div class="container">
-    <form >
-        <div class="form-group row">
-        <label for="inputPassword" class="col-sm-3 col-form-label">Product name</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" />
-           
-        </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-3 col-form-label">Product price</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-3 col-form-label">Product description</label>
-            <div class="col-sm-9">
-                <textarea class="form-control" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-3 col-form-label"></label>
-            <div class="col-sm-9">
-                <button type="submit" class="btn btn-primary">Save</button> &nbsp;
-                <button type="reset" class="btn btn-danger">Cancel</button>
-            </div>
-        </div>
-    </form>
-</div>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
-  <router-view/>
+  <div>Câu 1:</div>
+  <div>Output: {{ newArr }}</div>
+  <div>Câu 2: </div>
+  <div>Fibonacci: {{ fibonacciRecursion(6) }}</div>
 </template>
+
+<script>
+// @ is an alias to /src
+
+import { ref } from "vue";
+export default {
+  name: "App",
+  setup() {
+    const arr = ref(["a", "b", 1, 2, "c", 8, 9]);
+    const newArr = ref();
+    function convertArray(arr) {
+      var start = 0;
+      var end = arr.length - 1;
+      const lengthArray = arr.length;
+      for (start; start < (lengthArray - 1) / 2; start++) {
+        if (!Number.isFinite(arr[start])) {
+          for (let j = end; j > (lengthArray - 1) / 2; j--) {
+            if (!Number.isFinite(arr[j])) {
+              var temp = arr[start];
+              arr[start] = arr[j];
+              arr[j] = temp;
+              end = j;
+              start++;
+            }
+          }
+        }
+      }
+
+      return arr;
+    }
+
+    function fibonacciRecursion(num) {
+      if (num < 2) {
+        return num;
+      }
+      return fibonacciRecursion(num - 1) + fibonacciRecursion(num - 2);
+    }
+
+    newArr.value = convertArray(arr.value);
+ 
+    return {
+      newArr,
+      fibonacciRecursion
+    };
+  },
+};
+</script>
 
 <style>
 #app {
